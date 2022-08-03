@@ -3,11 +3,11 @@ package controller
 import (
 	"context"
 	"fmt"
-	"restaurant-management/database"
-	"restaurant-management/models"
 	"log"
 	"math"
 	"net/http"
+	"restaurant-management/database"
+	"restaurant-management/models"
 	"strconv"
 	"time"
 
@@ -18,7 +18,6 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
-
 
 var foodCollection *mongo.Collection = database.OpenCollection(database.Client, "food")
 var validate = validator.New()
@@ -157,7 +156,7 @@ func UpdateFood() gin.HandlerFunc {
 			updateObj = append(updateObj, bson.E{"food_image", food.Food_image})
 		}
 
-		if food.Menu_id != nil {
+		if food.Menu_id != "" {
 			err := menuCollection.FindOne(ctx, bson.M{"menu_id": food.Menu_id}).Decode(&menu)
 			defer cancel()
 			if err != nil {
